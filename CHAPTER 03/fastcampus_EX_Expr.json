@@ -1,0 +1,402 @@
+{
+  "name": "fastcampus EX2",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cad9e286-937f-40b0-9e30-39ec17e79f51",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "30b20972-c4b4-4b83-84c4-de99a17e917f",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "57897e18-bd6a-409f-9b65-a3ff59055a29",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "94028469-23d8-4fbf-92c8-7da1e7d2c49b",
+              "name": "=json",
+              "value": "={{ $json }}",
+              "type": "string"
+            },
+            {
+              "id": "86860f0b-edfe-4029-847a-047aab6b5de7",
+              "name": "name2",
+              "value": "={{$node[\"HTTP Request\"].json[\"name\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        0
+      ],
+      "id": "51431c5b-cb02-4fc2-a669-c3be49e1a6a4",
+      "name": "기본 표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f775fed0-9661-44b1-b2b6-afd9a685e613",
+              "name": "greeting",
+              "value": "={{$node[\"HTTP Request\"].json[\"name\"]}}님, 안녕하세요!",
+              "type": "string"
+            },
+            {
+              "id": "054be389-2668-4e91-97f3-d946bebbcee3",
+              "name": "upperName",
+              "value": "={{$node[\"HTTP Request\"].json[\"name\"].toUpperCase()}}",
+              "type": "string"
+            },
+            {
+              "id": "d764c9c9-ea62-4cac-8ff3-c7d0ce504bba",
+              "name": "lowerEmail",
+              "value": "={{$node[\"HTTP Request\"].json[\"email\"].toLowerCase()}}",
+              "type": "string"
+            },
+            {
+              "id": "23820466-ba8d-4a3c-82e7-ed743f0287d1",
+              "name": "nameLength",
+              "value": "={{$node[\"HTTP Request\"].json[\"name\"].length}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        200
+      ],
+      "id": "273a8bd2-aaa4-4de2-9345-33216a6250b8",
+      "name": "문자열 조작 표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ee73b27a-33cb-43d2-a86c-f0fbb9ce223e",
+              "name": "userId",
+              "value": "={{$node[\"HTTP Request\"].json[\"id\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "96f3f81c-a354-4d23-9c8e-e43f35d956c8",
+              "name": "doubleId",
+              "value": "={{$node[\"HTTP Request\"].json[\"id\"] * 2}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        400
+      ],
+      "id": "5eb22c90-3d2d-4b9d-a2f4-690b9b683f29",
+      "name": "수학 표현식 실습"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "20fcbf2d-01ed-47b0-a4c3-6d8bed95f318",
+              "name": "userType",
+              "value": "={{$node[\"HTTP Request\"].json[\"id\"] <= 5 ? \"VIP\" : \"일반\"}}",
+              "type": "string"
+            },
+            {
+              "id": "aa4e26de-81a7-4227-b9c1-7d3b36f3e75b",
+              "name": "emailDomain",
+              "value": "={{$node[\"HTTP Request\"].json[\"email\"].includes(\"biz\") ? \"비즈니스\" : \"개인\"}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        600
+      ],
+      "id": "76c2d622-9a5a-4498-b17f-fe616f8f4e30",
+      "name": "조건문 표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "25515604-aea7-4b49-8190-73af89ff5c1e",
+              "name": "now",
+              "value": "={{ $now }}",
+              "type": "string"
+            },
+            {
+              "id": "39c518aa-4165-4a31-b592-bf9d40094b78",
+              "name": "today",
+              "value": "={{ $today }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        800
+      ],
+      "id": "c5c1ee44-4cb9-4ff8-9253-b7ed3f86f6ba",
+      "name": "날짜 관련 표현식"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3198ca71-fec5-42c5-9809-c8243f92f780",
+              "name": "emailParts",
+              "value": "={{$node[\"HTTP Request\"].json[\"email\"].split(\"@\")}}",
+              "type": "string"
+            },
+            {
+              "id": "f6cec562-3bf9-4c50-aa09-9540400f0bf8",
+              "name": "maskedEmail",
+              "value": "={{$node[\"HTTP Request\"].json[\"email\"].replace(/[a-z]/g, \"*\")}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        1000
+      ],
+      "id": "ce05d820-6878-4f92-a28d-14c219624e52",
+      "name": "문자열 처리 함수"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3198ca71-fec5-42c5-9809-c8243f92f780",
+              "name": "emailParts",
+              "value": "={{$node[\"HTTP Request\"].json[\"email\"].split(\"@\")}}",
+              "type": "string"
+            },
+            {
+              "id": "f6cec562-3bf9-4c50-aa09-9540400f0bf8",
+              "name": "maskedEmail",
+              "value": "={{$node[\"HTTP Request\"].json[\"email\"].replace(/[a-z]/g, \"*\")}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        1200
+      ],
+      "id": "9f9ef35f-fe61-453e-94ce-a784a46ac189",
+      "name": "문자열 처리 함수2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0765edd9-1a0f-4bdf-80c7-547409c5ea18",
+              "name": "워크플로우 ID",
+              "value": "={{$workflow.id}} ",
+              "type": "string"
+            },
+            {
+              "id": "e4579507-f304-4cfc-8c1c-75715386dc4c",
+              "name": "워크플로우 이름",
+              "value": "={{$workflow.name}}      ",
+              "type": "string"
+            },
+            {
+              "id": "75abaf8d-6e0f-4375-b71e-655fa3a1d401",
+              "name": "워크플로우 활성화 상태",
+              "value": "={{$workflow.active}}   ",
+              "type": "string"
+            },
+            {
+              "id": "73f0823f-7e40-40a3-9037-22185639a5d9",
+              "name": "현재 실행 ID",
+              "value": "={{$execution.id}}",
+              "type": "string"
+            },
+            {
+              "id": "958c7254-47ab-42a3-bbed-99f94fa3061b",
+              "name": "실행 모드",
+              "value": "={{$execution.mode}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        760,
+        100
+      ],
+      "id": "19c473e7-cbdd-446a-a0b7-f064391b6225",
+      "name": "n8n 고유 기능"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "02e84f79-ceb3-408c-b24e-bd7e783228f0",
+              "name": "email",
+              "value": "={{ $json.email.split('@')[0] + '@gmail.com' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        760,
+        320
+      ],
+      "id": "ea2bc5ee-8017-4df7-9e5d-222720439885",
+      "name": "일괄 gmail 변경"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "기본 표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "문자열 조작 표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "수학 표현식 실습",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "조건문 표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "날짜 관련 표현식",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "문자열 처리 함수",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "문자열 처리 함수2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "n8n 고유 기능",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "일괄 gmail 변경",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "기본 표현식": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6c7c7035-202f-4c0c-aa1a-fb9afa9af91b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a62f21329d6d01243196ee24d2f16a00f4340d61b68844aa29e0817b9daf2238"
+  },
+  "id": "ZciNFMPTfHeB0JrH",
+  "tags": []
+}

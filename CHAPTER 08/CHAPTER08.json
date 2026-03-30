@@ -1,0 +1,155 @@
+{
+  "name": "PROJECT 1",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -280,
+        0
+      ],
+      "id": "e831bc38-caf6-4e8f-ba3b-885399bb3489",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1mQvLEFZuDWWQRPEoxmxPAcwGGHvdC0l_9s-EwMXYToU",
+          "mode": "list",
+          "cachedResultName": "일간 매체별 광고비 더미 데이터",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mQvLEFZuDWWQRPEoxmxPAcwGGHvdC0l_9s-EwMXYToU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mQvLEFZuDWWQRPEoxmxPAcwGGHvdC0l_9s-EwMXYToU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        -60,
+        0
+      ],
+      "id": "b790080a-5842-41ce-8cdb-9677c7b8177f",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "nEnvpWSf1nJysoec",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "labelsMode": "array",
+        "labelsArray": "={{['네이버', '카카오', '구글', '페이스북', '인스타그램']}}",
+        "data": "={{ [ \n$json['네이버'],\n$json['카카오'],\n$json['구글'],\n$json['페이스북'],\n$json['인스타그램']\n] }}",
+        "chartOptions": {
+          "format": "png",
+          "horizontal": true
+        },
+        "datasetOptions": {}
+      },
+      "type": "n8n-nodes-base.quickChart",
+      "typeVersion": 1,
+      "position": [
+        160,
+        0
+      ],
+      "id": "54a16e99-37a7-4296-9b9f-2c8b1f6325da",
+      "name": "QuickChart"
+    },
+    {
+      "parameters": {
+        "sendTo": "jgpark1998@gmail.com",
+        "subject": "=[n8nKorea] {{$now.format('yyyy-MM-dd')}} 일자 매체별 광고비를 발송 드립니다.",
+        "emailType": "text",
+        "message": "={{$now.format('yyyy-MM-dd')}} 일자 매체별 광고비 데이터 입니다.\n\n네이버 : {{ $('Google Sheets').item.json['네이버'] }} 원\n카카오 : {{ $('Google Sheets').item.json['카카오'] }} 원\n구글 : {{ $('Google Sheets').item.json['구글'] }} 원\n페이스북 : {{ $('Google Sheets').item.json['페이스북'] }} 원\n인스타그램 : {{ $('Google Sheets').item.json['인스타그램'] }} 원\n\n시각 자료는 첨부파일을 확인해주세요",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        380,
+        0
+      ],
+      "id": "577fe084-3155-43fc-b4b7-bfaf6ca8bee0",
+      "name": "Gmail",
+      "webhookId": "e8bbc48f-36e9-46ac-8efd-fd363ccc7758",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "vvLvJinKNiKcAm7y",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "QuickChart",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QuickChart": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4f99d3b7-d69b-498d-a9be-61408cb3eebd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f7400cab2b32f46d797858f0a6499c129f3a728a7f342715a892a3ebd5a06135"
+  },
+  "id": "JpctgAzI3zIZ2z9g",
+  "tags": []
+}

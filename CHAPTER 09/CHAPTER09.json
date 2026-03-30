@@ -1,0 +1,364 @@
+{
+  "name": "PRJ 2",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "sender": "no-reply@zoom.us"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "22e44085-2870-4823-996f-719104abec61",
+      "name": "Gmail Trigger",
+      "notesInFlow": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "sLLkIDXIx7bnYWRE",
+          "name": "n8nkorea"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "75afd79d-4fec-4f7f-a3f4-a470ae9c8c01",
+              "leftValue": "={{ $json.Subject }}",
+              "rightValue": "Zoom 로그인 코드",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "30e7ab07-9559-4180-9a9a-b32aba2259da",
+              "leftValue": "={{ $json.Subject }}",
+              "rightValue": "Code for signing in to Zoom",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "d5a8d094-edb2-49f7-8e40-2ac4bdab74f4",
+      "name": "Zoom mail filtering",
+      "notesInFlow": true,
+      "notes": "Zoom email 만 필터링"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function 노드의 코드\n\n// 입력된 snippet 데이터 가져오기\nconst snippet = $('Gmail Trigger').first().json.snippet\n\n\n// 필요한 정보 추출을 위한 정규표현식 패턴 정의\n// 기존: const codePattern = /코드를 입력하십시오\\.\\s*(\\d+)\\s*코드는/;\n// 변경: 6자리 숫자만 추출\nconst codePattern = /\\b(\\d{6})\\b/;\nconst datePattern = /Date\\s+([\\d\\/:\\sAPM]+)/;\nconst browserPattern = /Browser\\s+([^\\n]+)/;\nconst osPattern = /Operating System\\s+([^\\n]+)/;\nconst locationPattern = /Location\\s+([^\\n]+)/;\nconst namePattern = /안녕하세요([^\\s,]+)[님,|,\\n]/;\n\n// 각 정보 추출\nconst codeMatch = snippet.match(codePattern);\nconst dateMatch = snippet.match(datePattern);\nconst browserMatch = snippet.match(browserPattern);\nconst osMatch = snippet.match(osPattern);\nconst locationMatch = snippet.match(locationPattern);\nconst nameMatch = snippet.match(namePattern);\n\n// 추출된 데이터 변수에 저장\nconst code = codeMatch ? codeMatch[1] : '';\nconst date = dateMatch ? dateMatch[1] : '';\nconst browser = browserMatch ? browserMatch[1] : '';\nconst os = osMatch ? osMatch[1] : '';\nconst location = locationMatch ? locationMatch[1] : '';\nconst name = nameMatch ? nameMatch[1] : '고객';\n\n// 이미지 URL 수정 (실제 이미지 URL 사용)\nconst imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRohD4e3zXSpC1mpURiV_opXy6Av6SY06v49g&s';\n\n// HTML 템플릿 작성\nconst htmlContent = `\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Zoom 보안 알림</title>\n    <style type=\"text/css\">\n        body { font-family: '맑은 고딕', Arial, sans-serif; background-color: #EEEEEE; margin: 0; padding: 0; }\n        .container { max-width: 600px; margin: 0 auto; background-color: #FFFFFF; padding: 40px; }\n        .header { padding: 20px; text-align: center; }\n        .header img { max-width: 100px; }\n        .content { margin-top: 40px; font-size: 14px; color: #232333; line-height: 1.5; }\n        .content h1 { font-size: 24px; }\n        .code { font-size: 28px; font-weight: bold; letter-spacing: 0.2em; margin: 20px 0; }\n        .details { background-color: #F7F7FC; padding: 20px; }\n        .details table { width: 100%; }\n        .details td { padding: 5px 0; }\n        .details td.label { color: #747487; width: 30%; }\n        .footer { margin-top: 40px; font-size: 12px; color: #747487; }\n        .footer a { color: #0E71EB; text-decoration: none; }\n    </style>\n</head>\n<body>\n    <div class=\"header\">\n        <img src=\"${imageUrl}\" alt=\"Zoom Logo\" style=\"display:block; font-family:'Lato',Helvetica,sans-serif; font-size:18px; line-height:22px; color:#76798a; font-weight:bold; width:100%; max-width:100px\" width=\"100\">\n    </div>\n    <div class=\"container\">\n        <div class=\"content\">\n            <p>안녕하세요 ${name},</p>\n            <p>평소에 사용하지 않는 장치 또는 위치에서 비정상적인 로그인이 감지되었습니다. 귀하가 맞으면 Zoom에 로그인하기 위해 아래에 코드를 입력하십시오.</p>\n            <div class=\"code\">${code}</div>\n            <p>코드는 10분 후 만료됩니다.</p>\n            <p>아래 로그인 활동 세부 정보를 검토하십시오.</p>\n            <div class=\"details\">\n                <table>\n                    <tr>\n                        <td class=\"label\">Date</td>\n                        <td>${date}</td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Browser</td>\n                        <td>${browser}</td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Operating System</td>\n                        <td>${os}</td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Location</td>\n                        <td>${location}</td>\n                    </tr>\n                </table>\n            </div>\n            <p>만약 귀하가 아니라면, <a href=\"https://zoom.us/security\">여기</a>에서 저희에게 알려주십시오. 계정 보안을 위해 암호를 업데이트하고 2단계 인증을 사용하는 것이 좋습니다.</p>\n            <p>감사합니다.<br>Zoom 운영팀</p>\n        </div>\n        <div class=\"footer\">\n            <p>계정의 보안을 강화하기 위해 로그인 경고를 활성화했습니다. 새로운 브라우저, 위치 또는 장치에서 로그인 활동이 감지되면 사용자에게 알려드립니다.</p>\n        </div>\n    </div>\n</body>\n</html>\n`;\n\n// 결과를 json으로 반환\nreturn [{ json: { htmlContent, code } }];\n"
+      },
+      "id": "13a96e57-7a01-4d32-aa95-2f70f4fb9f95",
+      "name": "make html content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "html": "{{ $json.htmlContent }}"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        0
+      ],
+      "id": "c33bf54a-c31c-45ef-8362-4f5bcf34369c",
+      "name": "HTML 미리보기"
+    },
+    {
+      "parameters": {
+        "content": "## 🗒️ **n8n 워크플로우 메모 (Zoom 6자리 코드 알림)**\n\n### 📌 목적\n\n* Zoom에서 발송되는 **2‑단계 인증(6자리 코드) 메일**만 골라 →\n\n  1. **HTML 형식**으로 재가공해 본인에게 다시 이메일 전송\n  2. **Slack 채널**에 코드만 간단히 공지\n\n### 🔗 흐름 요약\n\n1. **Gmail Trigger**\n\n   * 매 1 분마다 새 메일 검사\n   * 발신자: `no-reply@zoom.us` 제한\n\n2. **Zoom mail filtering (Filter)**\n\n   * 제목이\n\n     * `Zoom 로그인 코드` **또는**\n     * `Code for signing in to Zoom`\n       인 메일만 통과\n\n3. **make html content (Code node)**\n\n   * 메일 *snippet*에서 정규식으로 정보 추출\n\n     * 6자리 코드 / 날짜 / 브라우저 / OS / 위치 / 수신자 이름\n   * 간단한 **보안알림 HTML 템플릿** 생성\n   * 결과(JSON): `htmlContent`, `code`\n\n4. **HTML 미리보기 (HTML node)**\n\n   * 생성된 HTML 미리보기용\n   * 이후 노드들이 `html` 필드를 그대로 사용\n\n5. **Gmail 발송**\n\n   * 수신자: `n8nkorea@gmail.com`\n   * 제목: 원본 메일 제목 유지\n   * 본문: 새로 만든 `html` (정식 보안알림 형태)\n\n6. **Slack**\n\n   * 채널 ID `C088ZAG41U5` (슬랙‑전체)\n   * 메시지: `Zoom 코드 :  <6자리>`\n   * 즉시 팀원들과 코드 공유\n",
+        "height": 1120,
+        "width": 840,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -896,
+        -416
+      ],
+      "id": "126c3e14-5f90-4daf-99f3-69477d74678b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C098LJM1G13",
+          "mode": "list",
+          "cachedResultName": "n8n-fastcampus-자동화"
+        },
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        1232,
+        -144
+      ],
+      "id": "2c2d0ab1-729e-4ed1-b91d-83bed54ff0ea",
+      "name": "Send a message",
+      "webhookId": "8682d775-434f-47b4-8eda-c3a6941d5027",
+      "credentials": {
+        "slackApi": {
+          "id": "CbK3RpddC376WyGq",
+          "name": "n8n-fastcampus"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "12bXNDnrcXLx0RmksvndkdcVyHKNxJnUqthjrnvB0nbI",
+          "mode": "list",
+          "cachedResultName": "ZOOM 인증코드 발송 명단",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12bXNDnrcXLx0RmksvndkdcVyHKNxJnUqthjrnvB0nbI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/12bXNDnrcXLx0RmksvndkdcVyHKNxJnUqthjrnvB0nbI/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1008,
+        160
+      ],
+      "id": "d188e6da-ded1-45f2-895e-a8205c8d8b16",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lnb7oHbzeLbqJNaF",
+          "name": "n8nkorea"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "jgpark1998@naver.com",
+        "subject": "={{ $('Gmail Trigger').item.json.Subject }}",
+        "message": "={{ $('make html content').item.json.htmlContent }}",
+        "options": {
+          "appendAttribution": false,
+          "bccList": "={{ $json[\"이메일\"] }}"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1360,
+        240
+      ],
+      "id": "3832d917-63cf-4251-9959-9849debd9ac6",
+      "name": "Gmail 발송1",
+      "webhookId": "a96faf4e-55ff-4152-ab66-09a5f0c7c7dd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "sLLkIDXIx7bnYWRE",
+          "name": "n8nkorea"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Zoom mail filtering": [
+      {
+        "json": {
+          "id": "19869179f8f0fb7b",
+          "threadId": "19868d0c466c1b9e",
+          "snippet": "Zoom Logo 안녕하세요오프라인_박정기님, 평소에 사용하지 않는 장치 또는 위치에서 비정상적인 로그인이 감지되었습니다. 귀하가 맞으면 Zoom에 로그인하기 위해 아래에 코드를 입력하십시오. 800280 코드는 10분 후 만료됩니다. 아래 로그인 활동 세부 정보를 검토하십시오. Date 2025/08/02 01:43:31 PM Browser Chrome",
+          "payload": {
+            "mimeType": "text/html"
+          },
+          "sizeEstimate": 34310,
+          "historyId": "5758129",
+          "internalDate": "1754109812000",
+          "labels": [
+            {
+              "id": "IMPORTANT",
+              "name": "IMPORTANT"
+            },
+            {
+              "id": "CATEGORY_UPDATES",
+              "name": "CATEGORY_UPDATES"
+            },
+            {
+              "id": "Label_19",
+              "name": "[Superhuman]/AI/AutoArchived"
+            }
+          ],
+          "From": "Zoom <no-reply@zoom.us>",
+          "Subject": "Zoom 로그인 코드",
+          "To": "jgpark1998@gmail.com"
+        }
+      }
+    ],
+    "make html content": [
+      {
+        "json": {
+          "htmlContent": "\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Zoom 보안 알림</title>\n    <style type=\"text/css\">\n        body { font-family: '맑은 고딕', Arial, sans-serif; background-color: #EEEEEE; margin: 0; padding: 0; }\n        .container { max-width: 600px; margin: 0 auto; background-color: #FFFFFF; padding: 40px; }\n        .header { padding: 20px; text-align: center; }\n        .header img { max-width: 100px; }\n        .content { margin-top: 40px; font-size: 14px; color: #232333; line-height: 1.5; }\n        .content h1 { font-size: 24px; }\n        .code { font-size: 28px; font-weight: bold; letter-spacing: 0.2em; margin: 20px 0; }\n        .details { background-color: #F7F7FC; padding: 20px; }\n        .details table { width: 100%; }\n        .details td { padding: 5px 0; }\n        .details td.label { color: #747487; width: 30%; }\n        .footer { margin-top: 40px; font-size: 12px; color: #747487; }\n        .footer a { color: #0E71EB; text-decoration: none; }\n    </style>\n</head>\n<body>\n    <div class=\"header\">\n        <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRohD4e3zXSpC1mpURiV_opXy6Av6SY06v49g&s\" alt=\"Zoom Logo\" style=\"display:block; font-family:'Lato',Helvetica,sans-serif; font-size:18px; line-height:22px; color:#76798a; font-weight:bold; width:100%; max-width:100px\" width=\"100\">\n    </div>\n    <div class=\"container\">\n        <div class=\"content\">\n            <p>안녕하세요 오프라인_박정기님,</p>\n            <p>평소에 사용하지 않는 장치 또는 위치에서 비정상적인 로그인이 감지되었습니다. 귀하가 맞으면 Zoom에 로그인하기 위해 아래에 코드를 입력하십시오.</p>\n            <div class=\"code\">800280</div>\n            <p>코드는 10분 후 만료됩니다.</p>\n            <p>아래 로그인 활동 세부 정보를 검토하십시오.</p>\n            <div class=\"details\">\n                <table>\n                    <tr>\n                        <td class=\"label\">Date</td>\n                        <td>2025/08/02 01:43:31 PM </td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Browser</td>\n                        <td>Chrome</td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Operating System</td>\n                        <td></td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Location</td>\n                        <td></td>\n                    </tr>\n                </table>\n            </div>\n            <p>만약 귀하가 아니라면, <a href=\"https://zoom.us/security\">여기</a>에서 저희에게 알려주십시오. 계정 보안을 위해 암호를 업데이트하고 2단계 인증을 사용하는 것이 좋습니다.</p>\n            <p>감사합니다.<br>Zoom 운영팀</p>\n        </div>\n        <div class=\"footer\">\n            <p>계정의 보안을 강화하기 위해 로그인 경고를 활성화했습니다. 새로운 브라우저, 위치 또는 장치에서 로그인 활동이 감지되면 사용자에게 알려드립니다.</p>\n        </div>\n    </div>\n</body>\n</html>\n",
+          "code": "800280"
+        }
+      }
+    ],
+    "HTML 미리보기": [
+      {
+        "json": {
+          "html": "\n<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Zoom 보안 알림</title>\n    <style type=\"text/css\">\n        body { font-family: '맑은 고딕', Arial, sans-serif; background-color: #EEEEEE; margin: 0; padding: 0; }\n        .container { max-width: 600px; margin: 0 auto; background-color: #FFFFFF; padding: 40px; }\n        .header { padding: 20px; text-align: center; }\n        .header img { max-width: 100px; }\n        .content { margin-top: 40px; font-size: 14px; color: #232333; line-height: 1.5; }\n        .content h1 { font-size: 24px; }\n        .code { font-size: 28px; font-weight: bold; letter-spacing: 0.2em; margin: 20px 0; }\n        .details { background-color: #F7F7FC; padding: 20px; }\n        .details table { width: 100%; }\n        .details td { padding: 5px 0; }\n        .details td.label { color: #747487; width: 30%; }\n        .footer { margin-top: 40px; font-size: 12px; color: #747487; }\n        .footer a { color: #0E71EB; text-decoration: none; }\n    </style>\n</head>\n<body>\n    <div class=\"header\">\n        <img src=\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRohD4e3zXSpC1mpURiV_opXy6Av6SY06v49g&s\" alt=\"Zoom Logo\" style=\"display:block; font-family:'Lato',Helvetica,sans-serif; font-size:18px; line-height:22px; color:#76798a; font-weight:bold; width:100%; max-width:100px\" width=\"100\">\n    </div>\n    <div class=\"container\">\n        <div class=\"content\">\n            <p>안녕하세요 오프라인_박정기님,</p>\n            <p>평소에 사용하지 않는 장치 또는 위치에서 비정상적인 로그인이 감지되었습니다. 귀하가 맞으면 Zoom에 로그인하기 위해 아래에 코드를 입력하십시오.</p>\n            <div class=\"code\">800280</div>\n            <p>코드는 10분 후 만료됩니다.</p>\n            <p>아래 로그인 활동 세부 정보를 검토하십시오.</p>\n            <div class=\"details\">\n                <table>\n                    <tr>\n                        <td class=\"label\">Date</td>\n                        <td>2025/08/02 01:43:31 PM </td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Browser</td>\n                        <td>Chrome</td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Operating System</td>\n                        <td></td>\n                    </tr>\n                    <tr>\n                        <td class=\"label\">Location</td>\n                        <td></td>\n                    </tr>\n                </table>\n            </div>\n            <p>만약 귀하가 아니라면, <a href=\"https://zoom.us/security\">여기</a>에서 저희에게 알려주십시오. 계정 보안을 위해 암호를 업데이트하고 2단계 인증을 사용하는 것이 좋습니다.</p>\n            <p>감사합니다.<br>Zoom 운영팀</p>\n        </div>\n        <div class=\"footer\">\n            <p>계정의 보안을 강화하기 위해 로그인 경고를 활성화했습니다. 새로운 브라우저, 위치 또는 장치에서 로그인 활동이 감지되면 사용자에게 알려드립니다.</p>\n        </div>\n    </div>\n</body>\n</html>\n"
+        }
+      }
+    ],
+    "Gmail Trigger": [
+      {
+        "json": {
+          "id": "19869179f8f0fb7b",
+          "threadId": "19868d0c466c1b9e",
+          "snippet": "Zoom Logo 안녕하세요오프라인_박정기님, 평소에 사용하지 않는 장치 또는 위치에서 비정상적인 로그인이 감지되었습니다. 귀하가 맞으면 Zoom에 로그인하기 위해 아래에 코드를 입력하십시오. 800280 코드는 10분 후 만료됩니다. 아래 로그인 활동 세부 정보를 검토하십시오. Date 2025/08/02 01:43:31 PM Browser Chrome",
+          "payload": {
+            "mimeType": "text/html"
+          },
+          "sizeEstimate": 34310,
+          "historyId": "5758129",
+          "internalDate": "1754109812000",
+          "labels": [
+            {
+              "id": "IMPORTANT",
+              "name": "IMPORTANT"
+            },
+            {
+              "id": "CATEGORY_UPDATES",
+              "name": "CATEGORY_UPDATES"
+            },
+            {
+              "id": "Label_19",
+              "name": "[Superhuman]/AI/AutoArchived"
+            }
+          ],
+          "From": "Zoom <no-reply@zoom.us>",
+          "Subject": "Zoom 로그인 코드",
+          "To": "jgpark1998@gmail.com"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Zoom mail filtering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zoom mail filtering": {
+      "main": [
+        [
+          {
+            "node": "make html content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "make html content": {
+      "main": [
+        [
+          {
+            "node": "HTML 미리보기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTML 미리보기": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Gmail 발송1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "eaef950a-3537-437c-8ba1-ec5afd8efc65",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "558d88703fb65b2d0e44613bc35916258b0f0bf983c5d4730c00c424b77ca36a"
+  },
+  "id": "BLy1TTqgkkXvDNGl",
+  "tags": []
+}
