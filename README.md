@@ -16,38 +16,43 @@
 
 ## 📂 워크플로 목록
 
-### CHAPTER 03 — n8n 기본 기능 익히기
+### CHAPTER 03 — n8n 기본 사용법 익히기
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
-| `fastcampus_EX1.json` | fastcampus EX1 | HTTP 요청, Google Sheets 연동, 다양한 트리거(Schedule, Webhook, Form, Chat) 기본 실습 |
-| `fastcampus_EX1_IF.json` | fastcampus_EX1 IF | 위 워크플로에 **If 조건 분기** 노드를 추가한 버전 |
-| `fastcampus_EX1_Switch.json` | fastcampus_EX1 Switch | 위 워크플로에 **Switch 다중 분기** 노드를 추가한 버전 |
-| `fastcampus_EX_Expr.json` | fastcampus EX2 | n8n **표현식(Expression)** 실습 — 문자열 조작, 수학, 조건문, 날짜, n8n 고유 기능 등 |
+| `n8n_EX.json` | n8n_EX | HTTP 요청, Google Sheets 연동, 다양한 트리거(Schedule, Webhook, Form, Chat) 기본 실습 |
+| `n8n_EX_IF.json` | n8n_EX_IF | 위 워크플로에 **If 조건 분기** 노드를 추가한 버전 |
+| `n8n_EX_Switch.json` | n8n_EX_Switch | 위 워크플로에 **Switch 다중 분기** 노드를 추가한 버전 |
+
+### CHAPTER 04 — JSON 및 n8n 표현식 익히기
+
+| 파일명 | 워크플로명 | 설명 |
+|--------|-----------|------|
+| `n8n_EX_Expr.json` | n8n_EX_Expr | n8n **표현식(Expression)** 실습 — 문자열 조작, 수학, 조건문, 날짜, n8n 고유 기능 등 |
 
 ### CHAPTER 08 — 프로젝트 1: 자동 리포트 생성
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
-| `CHAPTER08.json` | PROJECT 1 | Schedule Trigger → Google Sheets 데이터 수집 → QuickChart 차트 생성 → Gmail 발송 |
+| `CHAPTER08.json` | CHAPTER 08 | Schedule Trigger → Google Sheets 데이터 수집 → QuickChart 차트 생성 → Gmail 발송 |
 
 ### CHAPTER 09 — 프로젝트 2: 이메일 자동화
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
-| `CHAPTER09.json` | PRJ 2 | Gmail Trigger → Zoom 메일 필터링 → HTML 콘텐츠 생성 → Slack 메시지 전송 + Gmail 발송 |
+| `CHAPTER09.json` | CHAPTER 09 | Gmail Trigger → Zoom 메일 필터링 → HTML 콘텐츠 생성 → Slack 메시지 전송 + Gmail 발송 |
 
 ### CHAPTER 10 — 프로젝트 3: AI 뉴스 분석 봇
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
-| `CHAPTER10.json` | 2025-08-04-PRJ3 | RSS 뉴스 피드(TSLA, NVDA, AAPL) 수집 → AI 모델(OpenAI, Groq, Perplexity) 분석 → Discord/Dropbox 배포. Form 트리거로 종목 선택 가능 |
+| `CHAPTER10.json` | CHAPTER 10 | RSS 뉴스 피드(TSLA, NVDA, AAPL) 수집 → AI 모델(OpenAI, Groq, Perplexity) 분석 → Discord/Dropbox 배포. Form 트리거로 종목 선택 가능 |
 
 ### CHAPTER 11 — 프로젝트 4: AI 에이전트
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
-| `CHAPTER11.json` | part5 google sheet Agent | AI Agent + Google Gemini/OpenAI → Google Sheets HR 데이터 조회 → Google Docs 문서 자동 생성. 채팅 인터페이스 기반 |
+| `CHAPTER11.json` | CHAPTER 11 | AI Agent + Google Gemini/OpenAI → Google Sheets HR 데이터 조회 → Google Docs 문서 자동 생성. 채팅 인터페이스 기반 |
 
 ## 🚀 사용 방법
 
@@ -56,7 +61,7 @@
 이 저장소를 클론하거나, 원하는 JSON 파일을 개별 다운로드합니다.
 
 ```bash
-git clone https://github.com/<YOUR_USERNAME>/n8n으로-업무-자동화.git
+git clone https://github.com/jgpark-ai/n8n-workflow-automation-book.git
 ```
 
 ### 2. n8n에 임포트
@@ -80,6 +85,7 @@ git clone https://github.com/<YOUR_USERNAME>/n8n으로-업무-자동화.git
 | 챕터 | 필요한 서비스 |
 |-------|-------------|
 | CHAPTER 03 | Google Sheets |
+| CHAPTER 04 | - (표현식 실습, 외부 서비스 불필요) |
 | CHAPTER 08 | Google Sheets, Gmail |
 | CHAPTER 09 | Gmail, Slack |
 | CHAPTER 10 | OpenAI API, Groq API, Discord, Dropbox |

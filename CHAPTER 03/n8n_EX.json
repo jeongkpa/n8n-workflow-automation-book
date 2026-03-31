@@ -1,5 +1,5 @@
 {
-  "name": "fastcampus_EX1 IF",
+  "name": "n8n_EX",
   "nodes": [
     {
       "parameters": {},
@@ -9,7 +9,7 @@
         0,
         0
       ],
-      "id": "8ab05c4e-34d6-4cf2-889a-4c1a8c3f99a3",
+      "id": "f7a172de-0331-4f50-82ff-4d7f9264cc70",
       "name": "When clicking ‘Test workflow’",
       "disabled": true
     },
@@ -24,7 +24,7 @@
         220,
         0
       ],
-      "id": "47a3ba1b-47a3-4364-91eb-4002fa08cac8",
+      "id": "c288e6ed-8b12-4172-949a-6fc72c69b70f",
       "name": "HTTP Request"
     },
     {
@@ -83,7 +83,7 @@
         440,
         0
       ],
-      "id": "29f0ad9b-d00c-445a-9b3b-238fa42f1813",
+      "id": "27d20029-28d9-4bb2-9ada-ce43f24ad26c",
       "name": "Edit Fields"
     },
     {
@@ -194,14 +194,14 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.6,
       "position": [
-        1000,
-        60
+        660,
+        0
       ],
-      "id": "51f332a8-f1d3-4b2e-9fb1-8e172fa5f71b",
+      "id": "a24cd120-f504-404f-b686-ab7618040871",
       "name": "Google Sheets",
       "credentials": {
         "googleSheetsOAuth2Api": {
-          "id": "bKLOpfZx0AK4VyT1",
+          "id": "hri92QDRaBGxE1hm",
           "name": "Google Sheets account"
         }
       }
@@ -222,7 +222,7 @@
         0,
         180
       ],
-      "id": "b7a16229-70dd-4261-9a50-34c318232610",
+      "id": "908313f0-0077-4b78-8687-1a6a1fc04a45",
       "name": "Schedule Trigger",
       "disabled": true
     },
@@ -237,7 +237,7 @@
         0,
         360
       ],
-      "id": "c6a109ab-540d-4468-9a03-b2aff98de2ed",
+      "id": "6d63ca70-f96a-49a3-a6d5-0a72abd9d8f7",
       "name": "Webhook",
       "webhookId": "ba0ec65b-ae0f-4331-abc3-f756b64b2783",
       "disabled": true
@@ -272,7 +272,7 @@
         0,
         520
       ],
-      "id": "e008ffd6-35e9-405a-9d10-ea1ccd4e6165",
+      "id": "4fd7588c-2e23-4446-9254-6a1cee61742b",
       "name": "On form submission",
       "webhookId": "4ac0fd9c-9baf-47cd-a93f-94282f772ae4",
       "disabled": true
@@ -288,162 +288,28 @@
         0,
         680
       ],
-      "id": "b38622cb-3921-4b36-ad8f-c81f535669c8",
+      "id": "e800833b-abf3-4419-9a66-d510dec68487",
       "name": "When chat message received",
       "webhookId": "0e226689-750f-416d-b4d0-57c97a226503"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "a9e114ef-6a83-4cb3-aa96-fc20735ff582",
-              "leftValue": "={{ $json.name }}",
-              "rightValue": "f",
-              "operator": {
-                "type": "string",
-                "operation": "contains"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        660,
-        0
-      ],
-      "id": "7428ed56-315a-4695-a9b0-a098ad164acb",
-      "name": "If"
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI",
-          "mode": "list",
-          "cachedResultName": "fastcampus-EX",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 913365638,
-          "mode": "list",
-          "cachedResultName": "f",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit#gid=913365638"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $json.id }}",
-            "name": "={{ $json.name }}",
-            "username": "={{ $json.username }}",
-            "city": "={{ $json.city }}",
-            "zipcode": "={{ $json.zipcode }}",
-            "phone": "={{ $json.phone }}",
-            "company_name": "={{ $json.company.name }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "name",
-              "displayName": "name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "username",
-              "displayName": "username",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "city",
-              "displayName": "city",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "zipcode",
-              "displayName": "zipcode",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "phone",
-              "displayName": "phone",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "company_name",
-              "displayName": "company_name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.6,
-      "position": [
-        1000,
-        -80
-      ],
-      "id": "e42baac2-964b-49cb-b83e-6ea7409af774",
-      "name": "Google Sheets1",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "bKLOpfZx0AK4VyT1",
-          "name": "Google Sheets account"
-        }
-      }
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "When chat message received": [
+      {
+        "json": {
+          "action": "sendMessage",
+          "sessionId": "0a261d91-ba02-4768-94b7-acaf171aa6f3",
+          "chatInput": "데이터 추가해줘"
+        }
+      }
+    ]
+  },
   "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        []
+      ]
+    },
     "HTTP Request": {
       "main": [
         [
@@ -459,7 +325,7 @@
       "main": [
         [
           {
-            "node": "If",
+            "node": "Google Sheets",
             "type": "main",
             "index": 0
           }
@@ -509,35 +375,17 @@
           }
         ]
       ]
-    },
-    "If": {
-      "main": [
-        [
-          {
-            "node": "Google Sheets1",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Google Sheets",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "00c00a78-5e61-43cf-85c9-ca8286ffb7a8",
+  "versionId": "d33473b8-855a-4fd1-9198-9ca824da4765",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "a62f21329d6d01243196ee24d2f16a00f4340d61b68844aa29e0817b9daf2238"
   },
-  "id": "aSjkZKiC8xmJHrnv",
+  "id": "HNRg9Fq02wHt8txj",
   "tags": []
 }

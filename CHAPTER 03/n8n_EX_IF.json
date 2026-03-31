@@ -1,5 +1,5 @@
 {
-  "name": "fastcampus_EX1 Switch",
+  "name": "n8n_EX_IF",
   "nodes": [
     {
       "parameters": {},
@@ -9,8 +9,9 @@
         0,
         0
       ],
-      "id": "8dc54bf9-a8e0-491d-aa48-1354512d1f42",
-      "name": "When clicking ‘Test workflow’"
+      "id": "8ab05c4e-34d6-4cf2-889a-4c1a8c3f99a3",
+      "name": "When clicking ‘Test workflow’",
+      "disabled": true
     },
     {
       "parameters": {
@@ -23,7 +24,7 @@
         220,
         0
       ],
-      "id": "a8dc5348-e00a-4a96-9e38-229c099f66ac",
+      "id": "47a3ba1b-47a3-4364-91eb-4002fa08cac8",
       "name": "HTTP Request"
     },
     {
@@ -82,7 +83,7 @@
         440,
         0
       ],
-      "id": "ac446929-e6f0-4539-b209-2b62e286e616",
+      "id": "29f0ad9b-d00c-445a-9b3b-238fa42f1813",
       "name": "Edit Fields"
     },
     {
@@ -97,10 +98,10 @@
         },
         "sheetName": {
           "__rl": true,
-          "value": 258765916,
+          "value": "gid=0",
           "mode": "list",
-          "cachedResultName": "l",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit#gid=258765916"
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit#gid=0"
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -196,7 +197,7 @@
         1000,
         60
       ],
-      "id": "491024a8-a1b5-485d-b631-daa301a3e08d",
+      "id": "51f332a8-f1d3-4b2e-9fb1-8e172fa5f71b",
       "name": "Google Sheets",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -221,13 +222,13 @@
         0,
         180
       ],
-      "id": "d66b8b41-66ee-48cd-9a7c-85c0234ec9b1",
+      "id": "b7a16229-70dd-4261-9a50-34c318232610",
       "name": "Schedule Trigger",
       "disabled": true
     },
     {
       "parameters": {
-        "path": "fa3da1fd-0ca4-4d6a-b2d7-53d433bab11c",
+        "path": "ba0ec65b-ae0f-4331-abc3-f756b64b2783",
         "options": {}
       },
       "type": "n8n-nodes-base.webhook",
@@ -236,9 +237,9 @@
         0,
         360
       ],
-      "id": "beb80802-671b-425d-9cbd-a928f0b43227",
+      "id": "c6a109ab-540d-4468-9a03-b2aff98de2ed",
       "name": "Webhook",
-      "webhookId": "fa3da1fd-0ca4-4d6a-b2d7-53d433bab11c",
+      "webhookId": "ba0ec65b-ae0f-4331-abc3-f756b64b2783",
       "disabled": true
     },
     {
@@ -271,9 +272,9 @@
         0,
         520
       ],
-      "id": "c6138f24-208f-4f0f-a3d0-f8955272363c",
+      "id": "e008ffd6-35e9-405a-9d10-ea1ccd4e6165",
       "name": "On form submission",
-      "webhookId": "6811b385-d7c1-4a59-88c7-0b7d01c735bc",
+      "webhookId": "4ac0fd9c-9baf-47cd-a93f-94282f772ae4",
       "disabled": true
     },
     {
@@ -287,10 +288,42 @@
         0,
         680
       ],
-      "id": "0bc663c1-b3f1-47fc-ae38-b8dbf4788da2",
+      "id": "b38622cb-3921-4b36-ad8f-c81f535669c8",
       "name": "When chat message received",
-      "webhookId": "2820dc24-0ca9-4c8b-a617-f25a7360306b",
-      "disabled": true
+      "webhookId": "0e226689-750f-416d-b4d0-57c97a226503"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a9e114ef-6a83-4cb3-aa96-fc20735ff582",
+              "leftValue": "={{ $json.name }}",
+              "rightValue": "f",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "7428ed56-315a-4695-a9b0-a098ad164acb",
+      "name": "If"
     },
     {
       "parameters": {
@@ -399,207 +432,8 @@
         1000,
         -80
       ],
-      "id": "12215ab3-2bec-4e3f-878a-2ae5292cb9d2",
+      "id": "e42baac2-964b-49cb-b83e-6ea7409af774",
       "name": "Google Sheets1",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "bKLOpfZx0AK4VyT1",
-          "name": "Google Sheets account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.name }}",
-                    "rightValue": "f",
-                    "operator": {
-                      "type": "string",
-                      "operation": "contains"
-                    },
-                    "id": "9368f0b5-cdf3-4e5a-9b94-5f002360ef61"
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "2da1d7b5-4d4d-444f-9107-7d753ac985a4",
-                    "leftValue": "={{ $json.name }}",
-                    "rightValue": "l",
-                    "operator": {
-                      "type": "string",
-                      "operation": "contains"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            },
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "id": "78213243-c677-426f-a558-905d384c43ec",
-                    "leftValue": "={{ $json.name }}",
-                    "rightValue": "b",
-                    "operator": {
-                      "type": "string",
-                      "operation": "contains"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        660,
-        0
-      ],
-      "id": "ee7347c8-a308-4c27-8741-11032a79b485",
-      "name": "Switch"
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {
-          "__rl": true,
-          "value": "1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI",
-          "mode": "list",
-          "cachedResultName": "fastcampus-EX",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit?usp=drivesdk"
-        },
-        "sheetName": {
-          "__rl": true,
-          "value": 2141632986,
-          "mode": "list",
-          "cachedResultName": "b",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit#gid=2141632986"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $json.id }}",
-            "name": "={{ $json.name }}",
-            "username": "={{ $json.username }}",
-            "city": "={{ $json.city }}",
-            "zipcode": "={{ $json.zipcode }}",
-            "phone": "={{ $json.phone }}",
-            "company_name": "={{ $json.company.name }}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "name",
-              "displayName": "name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "username",
-              "displayName": "username",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "city",
-              "displayName": "city",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "zipcode",
-              "displayName": "zipcode",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "phone",
-              "displayName": "phone",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "company_name",
-              "displayName": "company_name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.6,
-      "position": [
-        1000,
-        220
-      ],
-      "id": "193574b2-f957-4431-a8df-d9ee33a2c001",
-      "name": "Google Sheets2",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "bKLOpfZx0AK4VyT1",
@@ -625,7 +459,7 @@
       "main": [
         [
           {
-            "node": "Switch",
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -676,18 +510,7 @@
         ]
       ]
     },
-    "When clicking ‘Test workflow’": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Switch": {
+    "If": {
       "main": [
         [
           {
@@ -702,13 +525,6 @@
             "type": "main",
             "index": 0
           }
-        ],
-        [
-          {
-            "node": "Google Sheets2",
-            "type": "main",
-            "index": 0
-          }
         ]
       ]
     }
@@ -717,11 +533,11 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "21475bc6-4888-469f-a079-4b224b9fa9ac",
+  "versionId": "00c00a78-5e61-43cf-85c9-ca8286ffb7a8",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "a62f21329d6d01243196ee24d2f16a00f4340d61b68844aa29e0817b9daf2238"
   },
-  "id": "BkFB2OhL0dWkNyHS",
+  "id": "aSjkZKiC8xmJHrnv",
   "tags": []
 }

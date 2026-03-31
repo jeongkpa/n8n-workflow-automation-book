@@ -1,0 +1,727 @@
+{
+  "name": "n8n_EX_Switch",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8dc54bf9-a8e0-491d-aa48-1354512d1f42",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/users",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "a8dc5348-e00a-4a96-9e38-229c099f66ac",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "7ad53a72-fabf-440a-a159-5a8b4d67ba82",
+              "name": "id",
+              "value": "={{ $json.id }}",
+              "type": "number"
+            },
+            {
+              "id": "3d0ec892-aab0-485a-b209-b0e379aff8d0",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "04aee7f2-99e3-4c27-bb17-ffe1bc634129",
+              "name": "username",
+              "value": "={{ $json.username }}",
+              "type": "string"
+            },
+            {
+              "id": "785c6ba7-5710-42da-969a-17d9c7efe563",
+              "name": "city",
+              "value": "={{ $json.address.city }}",
+              "type": "string"
+            },
+            {
+              "id": "570136a4-9477-404a-ae3a-c404af78b2c9",
+              "name": "zipcode",
+              "value": "={{ $json.address.zipcode }}",
+              "type": "string"
+            },
+            {
+              "id": "bcedce39-0cd4-403b-ad4b-9684bc91d408",
+              "name": "phone",
+              "value": "={{ $json.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "d28ca1f5-9896-44a2-aa91-8d37dd16caab",
+              "name": "company.name",
+              "value": "={{ $json.company.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        440,
+        0
+      ],
+      "id": "ac446929-e6f0-4539-b209-2b62e286e616",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI",
+          "mode": "list",
+          "cachedResultName": "fastcampus-EX",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 258765916,
+          "mode": "list",
+          "cachedResultName": "l",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit#gid=258765916"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "name": "={{ $json.name }}",
+            "username": "={{ $json.username }}",
+            "city": "={{ $json.city }}",
+            "zipcode": "={{ $json.zipcode }}",
+            "phone": "={{ $json.phone }}",
+            "company_name": "={{ $json.company.name }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "zipcode",
+              "displayName": "zipcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_name",
+              "displayName": "company_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1000,
+        60
+      ],
+      "id": "491024a8-a1b5-485d-b631-daa301a3e08d",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bKLOpfZx0AK4VyT1",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        180
+      ],
+      "id": "d66b8b41-66ee-48cd-9a7c-85c0234ec9b1",
+      "name": "Schedule Trigger",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "path": "fa3da1fd-0ca4-4d6a-b2d7-53d433bab11c",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        360
+      ],
+      "id": "beb80802-671b-425d-9cbd-a928f0b43227",
+      "name": "Webhook",
+      "webhookId": "fa3da1fd-0ca4-4d6a-b2d7-53d433bab11c",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "formTitle": "데이터를 추가할까요?",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "동의합니다",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "동의"
+                  },
+                  {
+                    "option": "비동의"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        520
+      ],
+      "id": "c6138f24-208f-4f0f-a3d0-f8955272363c",
+      "name": "On form submission",
+      "webhookId": "6811b385-d7c1-4a59-88c7-0b7d01c735bc",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        680
+      ],
+      "id": "0bc663c1-b3f1-47fc-ae38-b8dbf4788da2",
+      "name": "When chat message received",
+      "webhookId": "2820dc24-0ca9-4c8b-a617-f25a7360306b",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI",
+          "mode": "list",
+          "cachedResultName": "fastcampus-EX",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 913365638,
+          "mode": "list",
+          "cachedResultName": "f",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit#gid=913365638"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "name": "={{ $json.name }}",
+            "username": "={{ $json.username }}",
+            "city": "={{ $json.city }}",
+            "zipcode": "={{ $json.zipcode }}",
+            "phone": "={{ $json.phone }}",
+            "company_name": "={{ $json.company.name }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "zipcode",
+              "displayName": "zipcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_name",
+              "displayName": "company_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1000,
+        -80
+      ],
+      "id": "12215ab3-2bec-4e3f-878a-2ae5292cb9d2",
+      "name": "Google Sheets1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bKLOpfZx0AK4VyT1",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.name }}",
+                    "rightValue": "f",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "9368f0b5-cdf3-4e5a-9b94-5f002360ef61"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2da1d7b5-4d4d-444f-9107-7d753ac985a4",
+                    "leftValue": "={{ $json.name }}",
+                    "rightValue": "l",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "78213243-c677-426f-a558-905d384c43ec",
+                    "leftValue": "={{ $json.name }}",
+                    "rightValue": "b",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "ee7347c8-a308-4c27-8741-11032a79b485",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI",
+          "mode": "list",
+          "cachedResultName": "fastcampus-EX",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2141632986,
+          "mode": "list",
+          "cachedResultName": "b",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kaKOLmfyIWW_N4akjZBsKHvdLbyOzYqoHxX7JwE52rI/edit#gid=2141632986"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json.id }}",
+            "name": "={{ $json.name }}",
+            "username": "={{ $json.username }}",
+            "city": "={{ $json.city }}",
+            "zipcode": "={{ $json.zipcode }}",
+            "phone": "={{ $json.phone }}",
+            "company_name": "={{ $json.company.name }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "username",
+              "displayName": "username",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "city",
+              "displayName": "city",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "zipcode",
+              "displayName": "zipcode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "company_name",
+              "displayName": "company_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1000,
+        220
+      ],
+      "id": "193574b2-f957-4431-a8df-d9ee33a2c001",
+      "name": "Google Sheets2",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "bKLOpfZx0AK4VyT1",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "21475bc6-4888-469f-a079-4b224b9fa9ac",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a62f21329d6d01243196ee24d2f16a00f4340d61b68844aa29e0817b9daf2238"
+  },
+  "id": "BkFB2OhL0dWkNyHS",
+  "tags": []
+}
