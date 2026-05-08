@@ -30,25 +30,25 @@
 |--------|-----------|------|
 | `n8n_EX_Expr.json` | n8n_EX_Expr | n8n **표현식(Expression)** 실습 — 문자열 조작, 수학, 조건문, 날짜, n8n 고유 기능 등 |
 
-### CHAPTER 08 — 프로젝트 1: 자동 리포트 생성
+### CHAPTER 08 — 프로젝트 1: 일간 매체별 광고비 시각화 및 이메일 발송 워크플로
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
 | `CHAPTER08.json` | CHAPTER 08 | Schedule Trigger → Google Sheets 데이터 수집 → QuickChart 차트 생성 → Gmail 발송 |
 
-### CHAPTER 09 — 프로젝트 2: 이메일 자동화
+### CHAPTER 09 — 프로젝트 2: 줌 계정 인증 코드 자동 전달 워크플로
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
 | `CHAPTER09.json` | CHAPTER 09 | Gmail Trigger → Zoom 메일 필터링 → HTML 콘텐츠 생성 → Slack 메시지 전송 + Gmail 발송 |
 
-### CHAPTER 10 — 프로젝트 3: AI 뉴스 분석 봇
+### CHAPTER 10 — 프로젝트 3: 주식 정보 자동 공유 워크플로
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
 | `CHAPTER10.json` | CHAPTER 10 | RSS 뉴스 피드(TSLA, NVDA, AAPL) 수집 → AI 모델(OpenAI, Groq, Perplexity) 분석 → Discord/Dropbox 배포. Form 트리거로 종목 선택 가능 |
 
-### CHAPTER 11 — 프로젝트 4: AI 에이전트
+### CHAPTER 11 — 프로젝트 4: 구글 서비스 활용(with AI 에이전트) 워크플로
 
 | 파일명 | 워크플로명 | 설명 |
 |--------|-----------|------|
