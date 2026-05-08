@@ -67,7 +67,7 @@
 이 저장소를 클론하거나, 원하는 JSON 파일을 개별 다운로드합니다.
 
 ```bash
-git clone https://github.com/jgpark-ai/n8n-workflow-automation-book.git
+git clone https://github.com/jeongkpa/n8n-workflow-automation-book.git
 ```
 
 ### 2. n8n에 임포트
